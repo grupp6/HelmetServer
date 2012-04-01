@@ -21,6 +21,7 @@ To build you'll need:
      If not you can download the source in the old fashoned way from 
      [this location](https://github.com/grupp6/HelmetServer/downloads).
 2.   Edit src/hibernate.cfg.xml and add the database connection settings for your database. Please note that
-     the server will automatically drop and create the necessary tables needed.
+     the server will automatically drop and create the necessary tables needed (using Hibernate). See the
+     [Hibernate documentation](http://www.hibernate.org/docs) for more details.
 3.   Build by running ```ant``` in the project folder. This will automatically download all dependencies.
 4.   Run the jar-file in HelmetServer/build.
