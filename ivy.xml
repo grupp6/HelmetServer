@@ -1,0 +1,7 @@
+<ivy-module version="2.0">
+	<info organisation="se.mah.helmet" module="HelmetServer" />
+	<dependencies>
+		<dependency org="org.hibernate" name="hibernate-core" rev="4.1.0.Final" />
+		<dependency org="mysql" name="mysql-connector-java" rev="5.1.18"/>
+	</dependencies>
+</ivy-module>
