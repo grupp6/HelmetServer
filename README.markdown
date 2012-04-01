@@ -4,14 +4,21 @@ HelmetServer is an application server that handles alarms from an Android app.
 
 How to build
 -------------
-To build you'll need:
-* Java JDK 7
-* Ant
-* Apache Ivy
-* A database
 
-This is the steps to download, build and run the server:
-1. Download source from [https://github.com/grupp6/HelmetServer](https://github.com/grupp6/HelmetServer). You can choose to use git clone or download an archive.
-2. Add database connection settings to the Hibernate configuration file (HelmetServer/src/hibernate.cfg.xml).
-3. Build by running ant. This will also download dependencies using Ivy.
-4. Run the jar-file in HelmetServer/build.
+### Prerequisites
+To build you'll need:
+
+* [Java JDK 7](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Apache Ant](http://ant.apache.org/)
+* [Apache Ivy](http://ant.apache.org/ivy/)
+* Database access. Any relational database that's compatible with Hibernate will do (=most).
+
+### Download, build and run
+
+1.   If you have git you can download the source by running the following 
+     command: ```git clone git://github.com/grupp6/HelmetServer.git```
+     
+     If not you can download the source in the old fashoned way from 
+     [this location](https://github.com/grupp6/HelmetServer/downloads).
+3.   Build by running ```ant``` in the project folder. This will automatically download all dependencies.
+4.   Run the jar-file in HelmetServer/build.
