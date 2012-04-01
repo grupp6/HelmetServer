@@ -1,3 +1,8 @@
+#            Hibernate configuration             #
+# Left out because it contains database password #
+##################################################
+hibernate.cfg.xml
+
 # Files in the build and lib paths #
 ####################################
 bin/
