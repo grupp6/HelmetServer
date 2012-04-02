@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.NaturalId;
+
 @Entity
 public class User {
 	private long id;
@@ -43,7 +45,7 @@ public class User {
 		this.id = id;
 	}
 	
-	@Column (unique=true)
+	@NaturalId
 	public String getName() {
 		return name;
 	}
