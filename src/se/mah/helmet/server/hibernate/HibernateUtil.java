@@ -10,7 +10,6 @@ public class HibernateUtil {
 
 	private static SessionFactory buildSessionFactory() {
 		Configuration configuration = new Configuration().configure();
-		configuration.setProperty("connection.password", "mycqlketlet");
 		final ServiceRegistry serviceRegistry = 
 				new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 		return configuration.buildSessionFactory(serviceRegistry);
