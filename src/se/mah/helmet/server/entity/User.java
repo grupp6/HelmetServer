@@ -18,7 +18,8 @@ public class User {
 	private List<Alarm> alarms = new ArrayList<Alarm>();
 	private List<Trip> trips = new ArrayList<Trip>();
 	
-	public User() { }
+	@SuppressWarnings("unused")
+	private User() { }
 	
 	public User(String name) {
 		this.name = name;
