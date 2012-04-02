@@ -3,6 +3,7 @@ package se.mah.helmet.server.entity;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class User {
 		this.name = name;
 	}
 	
-	@OneToMany
+	@OneToMany (cascade=CascadeType.ALL)
 	public Collection<Alarm> getAlarms() {
 		return alarms;
 	}
@@ -47,7 +48,7 @@ public class User {
 		this.alarms = alarms;
 	}
 	
-	@OneToMany
+	@OneToMany (cascade=CascadeType.ALL)
 	public Collection<Trip> getTrips() {
 		return trips;
 	}
