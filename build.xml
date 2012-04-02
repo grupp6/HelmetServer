@@ -43,6 +43,7 @@
 			<fileset dir="${build.dir}">
 			</fileset>
 		</delete>
+		<mkdir dir="${build.dir}"/>
 	</target>
 
 	<!-- ================================= 
