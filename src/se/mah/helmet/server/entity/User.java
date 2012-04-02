@@ -2,6 +2,7 @@ package se.mah.helmet.server.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,13 +15,22 @@ import javax.persistence.OneToMany;
 public class User {
 	private long id;
 	private String name;
-	private Collection<Alarm> alarms = new ArrayList<Alarm>();
-	private Collection<Trip> trips = new ArrayList<Trip>();
+	private List<Alarm> alarms = new ArrayList<Alarm>();
+	private List<Trip> trips = new ArrayList<Trip>();
 	
 	public User() { }
 	
 	public User(String name) {
 		this.name = name;
+	}
+	
+	public void addAlarm(Alarm alarm) {
+		this.alarms.add(alarm);
+		alarm.setUser(this);
+	}
+	
+	public void addTrip(Trip trip) {
+		this.trips.add(trip);
 	}
 	
 	@Id
@@ -41,19 +51,18 @@ public class User {
 	}
 	
 	@OneToMany (cascade=CascadeType.ALL)
-	public Collection<Alarm> getAlarms() {
+	public List<Alarm> getAlarms() {
 		return alarms;
 	}
-	public void setAlarms(Collection<Alarm> alarms) {
+	public void setAlarms(List<Alarm> alarms) {
 		this.alarms = alarms;
 	}
 	
 	@OneToMany (cascade=CascadeType.ALL)
-	public Collection<Trip> getTrips() {
+	public List<Trip> getTrips() {
 		return trips;
 	}
-	public void setTrips(Collection<Trip> trips) {
+	public void setTrips(List<Trip> trips) {
 		this.trips = trips;
 	}
-
 }
