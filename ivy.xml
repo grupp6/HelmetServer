@@ -3,5 +3,6 @@
 	<dependencies>
 		<dependency org="org.hibernate" name="hibernate-core" rev="4.1.0.Final" />
 		<dependency org="mysql" name="mysql-connector-java" rev="5.1.18"/>
+		<dependency org="postgresql" name="postgresql" rev="9.1-901.jdbc4"/>
 	</dependencies>
 </ivy-module>
