@@ -46,7 +46,7 @@ public class User {
 		this.contactInfo = contactInfo;
 	}
 	
-	@OneToMany (cascade=CascadeType.ALL)
+	@OneToMany (mappedBy="user", cascade=CascadeType.ALL)
 	public List<Alarm> getAlarms() {
 		return alarms;
 	}
