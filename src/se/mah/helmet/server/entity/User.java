@@ -15,16 +15,21 @@ import org.hibernate.annotations.NaturalId;
 
 @Entity
 public class User {
+	@SuppressWarnings("unused")
+	@Id
+	@GeneratedValue
 	private long id;
-	private String name;
+	private String loginName;
+	private Contact contactInfo;
+	private List<Contact> emergencyContacts = new ArrayList<Contact>();
 	private List<Alarm> alarms = new ArrayList<Alarm>();
 	private List<Trip> trips = new ArrayList<Trip>();
 	
 	@SuppressWarnings("unused")
 	private User() { }
 	
-	public User(String name) {
-		this.name = name;
+	public User(String loginName) {
+		this.loginName = loginName;
 	}
 	
 	public void addAlarm(Alarm alarm) {
@@ -33,6 +38,7 @@ public class User {
 	}
 	
 	public void addTrip(Trip trip) {
+		trip.setUser(this);
 		this.trips.add(trip);
 	}
 	
@@ -45,12 +51,11 @@ public class User {
 		this.id = id;
 	}
 	
-	@NaturalId
-	public String getName() {
-		return name;
+	public Contact getContactInfo() {
+		return contactInfo;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setContactInfo(Contact contactInfo) {
+		this.contactInfo = contactInfo;
 	}
 	
 	@OneToMany (cascade=CascadeType.ALL)
@@ -67,5 +72,23 @@ public class User {
 	}
 	public void setTrips(List<Trip> trips) {
 		this.trips = trips;
+	}
+
+	@NaturalId
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
+
+	@OneToMany (cascade=CascadeType.ALL)
+	public List<Contact> getEmergencyContacts() {
+		return emergencyContacts;
+	}
+
+	public void setEmergencyContacts(List<Contact> emergencyContacts) {
+		this.emergencyContacts = emergencyContacts;
 	}
 }

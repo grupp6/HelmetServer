@@ -13,7 +13,7 @@ public class Alarm {
 	private long id;
 	private User user;
 	private Position position;
-	private Date date = new Date();
+	// TODO Impact-data?
 	
 	@Id
 	@GeneratedValue
@@ -24,11 +24,8 @@ public class Alarm {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
+	public Date getTime() {
+		return position.getTime();
 	}
 	
 	@ManyToOne

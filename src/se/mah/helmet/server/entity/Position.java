@@ -8,26 +8,21 @@ import javax.persistence.Id;
 
 @Entity
 public class Position {
+	@SuppressWarnings("unused")
+	@Id
+	@GeneratedValue
 	private long id;
 	private Date time;
 	private double longitude;
 	private double latitude;
 	
-	public Position() { }
+	@SuppressWarnings("unused")
+	private Position() { }
 	
 	public Position(Date time, double longitude, double latitude) {
 		this.time = time;
 		this.longitude = longitude;
 		this.latitude = latitude;
-	}
-	
-	@Id
-	@GeneratedValue
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
 	}
 	
 	public Date getTime() {
