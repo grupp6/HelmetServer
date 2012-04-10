@@ -1,23 +1,19 @@
 package se.mah.helmet.server.entity;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.NaturalId;
 
 @Entity
 public class User {
-	@SuppressWarnings("unused")
-	@Id
-	@GeneratedValue
 	private long id;
 	private String loginName;
 	private Contact contactInfo;
@@ -42,15 +38,7 @@ public class User {
 		this.trips.add(trip);
 	}
 	
-	@Id
-	@GeneratedValue
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	
+	@OneToOne
 	public Contact getContactInfo() {
 		return contactInfo;
 	}
@@ -90,5 +78,15 @@ public class User {
 
 	public void setEmergencyContacts(List<Contact> emergencyContacts) {
 		this.emergencyContacts = emergencyContacts;
+	}
+	
+	@Id
+	@GeneratedValue
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }

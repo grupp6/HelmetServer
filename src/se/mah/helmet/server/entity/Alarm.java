@@ -24,9 +24,11 @@ public class Alarm {
 		this.id = id;
 	}
 
+	/*
 	public Date getTime() {
 		return position.getTime();
 	}
+	*/
 	
 	@ManyToOne
 	public User getUser() {

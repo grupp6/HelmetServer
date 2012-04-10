@@ -30,10 +30,10 @@ public class HibernateTest {
 		session = HibernateUtil.getSessionFactory().openSession();
 		user = null;
 		user = (User) session.get(User.class, 1l);
-		System.out.println(user.getName());
+		System.out.println(user.getLoginName());
 		user = null;
 		user = (User) session.bySimpleNaturalId(User.class).load("Mr Brown");
-		System.out.println(user.getName());
+		System.out.println(user.getLoginName());
 		session.close();
 		
 	}
