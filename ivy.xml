@@ -4,5 +4,12 @@
 		<dependency org="org.hibernate" name="hibernate-core" rev="4.1.0.Final" />
 		<dependency org="mysql" name="mysql-connector-java" rev="5.1.18"/>
 		<dependency org="postgresql" name="postgresql" rev="9.1-901.jdbc4"/>
+		<dependency org="com.sun.jersey" name="jersey-core" rev="1.13-b01"/>
+		<dependency org="com.sun.jersey" name="jersey-server" rev="1.13-b01"/>
+		<dependency org="com.sun.jersey" name="jersey-client" rev="1.13-b01"/>
+		<dependency org="com.sun.jersey" name="jersey-servlet" rev="1.13-b01"/>
+		<dependency org="com.sun.jersey" name="jersey-json" rev="1.13-b01"/>
+		<dependency org="javax.xml.bind" name="jaxb-api" rev="2.2.6"/>
+		<dependency org="com.sun.xml.bind" name="jaxb-impl" rev="2.2.5"/>
 	</dependencies>
 </ivy-module>
