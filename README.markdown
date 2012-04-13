@@ -12,7 +12,7 @@ To build and run you'll need:
 * [Apache Tomcat 7](http://tomcat.apache.org/)
 * [Apache Ant](http://ant.apache.org/)
 * [Apache Ivy](http://ant.apache.org/ivy/)
-* [Eclipse](http://www.eclipse.org/) with the (Web Tools Platform)[http://www.eclipse.org/webtools/] installed
+* [Eclipse](http://www.eclipse.org/) with the [Web Tools Platform](http://www.eclipse.org/webtools/) installed
 * Database access. Any relational database that's compatible with Hibernate will do (=most).
 
 ### Download, build and run
