@@ -1,4 +1,4 @@
-package se.mah.helmet.server.hibernate;
+package se.mah.helmet.server.storage;
 
 import java.util.Date;
 
