@@ -1,7 +1,7 @@
 # Hibernate configuration    #
 # Contains database password #
 ##############################
-hibernate.cfg.xml
+src/hibernate.cfg.xml
 
 # Files in the build and lib paths #
 ####################################
