@@ -25,7 +25,7 @@ public class UsersResource {
 	@Produces(MediaType.TEXT_HTML)
 	public String getHtml() {
 		// TODO Implementera
-		return null;
+		return "Inte implementerat.";
 	}
 	
 	@POST
