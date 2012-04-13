@@ -14,6 +14,7 @@ import javax.ws.rs.core.UriInfo;
 
 import se.mah.helmet.server.entity.Trip;
 import se.mah.helmet.server.entity.User;
+import se.mah.helmet.server.storage.DAO;
 
 import com.sun.jersey.api.NotFoundException;
 
@@ -33,11 +34,12 @@ public class TripResource {
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public String getTripHtml(@PathParam("trip") long tripId) {
+		// TODO Implementera
 		return getTrip(tripId).toString();
 	}
 	
 	private Trip getTrip(long tripId) {
-		Trip trip = null; // TODO Hämta Trip från databasen
+		Trip trip = DAO.getTrip(tripId);
 		if (trip == null)
 			throw new NotFoundException("No such Trip.");
 		return trip; 
@@ -45,14 +47,12 @@ public class TripResource {
 	
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public User updateTrip(Trip updatedTrip) {
-		return null; // TODO Update trip in database, throw appropriate WebApplicationException if fail
+	public void updateTrip(Trip updatedTrip) {
+		DAO.update(updatedTrip);
 	}
 	
 	@DELETE
 	public void deleteTrip(@PathParam("trip") long tripId) {
-		// TODO Delete trip in database
-		// TODO If trip didn't exist, throw NotFoundException
+		DAO.deleteById(Trip.class, tripId);
 	}
 }

@@ -12,6 +12,7 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
 import se.mah.helmet.server.entity.User;
+import se.mah.helmet.server.storage.DAO;
 
 @Path("/users")
 public class UsersResource {
@@ -31,6 +32,6 @@ public class UsersResource {
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public void newUser(User newUser) {
-		// TODO Validate and save user in database
+		DAO.insertUser(newUser);
 	}
 }

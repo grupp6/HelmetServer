@@ -46,13 +46,12 @@ public class UserResource {
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public User updateUser(User updatedUser) {
-		return null; // TODO Update user in database, throw appropriate WebApplicationException if fail
+	public void updateUser(User updatedUser) {
+		DAO.update(updatedUser);
 	}
 	
 	@DELETE
 	public void deleteUser(@PathParam("user") String userName) {
-		// TODO Delete user in database
-		// TODO If user didn't exist, throw NotFoundException
+		DAO.deleteById(User.class, DAO.getUser(userName).getId());
 	}
 }

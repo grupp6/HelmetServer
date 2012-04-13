@@ -4,6 +4,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -11,6 +12,7 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
 import se.mah.helmet.server.entity.Trip;
+import se.mah.helmet.server.storage.DAO;
 
 @Path("/users/{user}/trips")
 public class TripsResource {
@@ -29,7 +31,7 @@ public class TripsResource {
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public void newAlarm(Trip newTrip) {
-		// TODO Validate and save user in database
+	public void newAlarm(Trip newTrip, @PathParam("user") String userName) {
+		DAO.insertUserTrip(userName, newTrip);
 	}
 }

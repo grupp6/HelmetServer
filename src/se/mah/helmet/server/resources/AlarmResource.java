@@ -14,6 +14,7 @@ import javax.ws.rs.core.UriInfo;
 
 import se.mah.helmet.server.entity.Alarm;
 import se.mah.helmet.server.entity.User;
+import se.mah.helmet.server.storage.DAO;
 
 import com.sun.jersey.api.NotFoundException;
 
@@ -37,9 +38,9 @@ public class AlarmResource {
 	}
 	
 	private Alarm getAlarm(long alarmId) {
-		Alarm alarm = null; // TODO Hämta Alarm från databasen
+		Alarm alarm = DAO.getById(Alarm.class, alarmId);
 		if (alarm == null)
-			throw new NotFoundException("No such User.");
+			throw new NotFoundException("No such Alarm.");
 		return alarm; 
 	}
 }
