@@ -13,6 +13,7 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
 import se.mah.helmet.server.entity.User;
+import se.mah.helmet.server.storage.DAO;
 
 import com.sun.jersey.api.NotFoundException;
 
@@ -36,7 +37,7 @@ public class UserResource {
 	}
 	
 	private User getUser(String userName) {
-		User user = null; // TODO Hämta User med anv namn userName från databasen
+		User user = DAO.getUser(userName);
 		if (user == null)
 			throw new NotFoundException("No such User.");
 		return user; 
