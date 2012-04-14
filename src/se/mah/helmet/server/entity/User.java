@@ -37,7 +37,6 @@ public class User {
 	}
 	
 	public void addTrip(Trip trip) {
-		trip.setUser(this);
 		this.trips.add(trip);
 	}
 	
