@@ -1,16 +1,18 @@
 package se.mah.helmet.server.storage;
 
 import java.io.Serializable;
+import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
-
-import com.sun.jersey.api.NotFoundException;
 
 import se.mah.helmet.server.entity.AccData;
 import se.mah.helmet.server.entity.Alarm;
 import se.mah.helmet.server.entity.Position;
 import se.mah.helmet.server.entity.Trip;
 import se.mah.helmet.server.entity.User;
+
+import com.sun.jersey.api.NotFoundException;
 
 public class DAO {
 	
@@ -132,6 +134,15 @@ public class DAO {
 		}
 		session.delete(toDelete);
 		commitAndClose(session);
+	}
+	
+	public static <T> List<T> getAll(Class<T> clazz) {
+		Session session = getSession();
+		Query query = session.createQuery("from " + clazz.getName());
+		@SuppressWarnings("unchecked")
+		List<T> res = query.list();
+		session.close();
+		return res;
 	}
 	
 	public static <T> T getById(Class<T> clazz, Serializable id) {

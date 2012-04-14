@@ -4,7 +4,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -23,9 +22,14 @@ public class UsersResource {
 	
 	@GET
 	@Produces(MediaType.TEXT_HTML)
-	public String getHtml() {
-		// TODO Implementera
-		return "Inte implementerat.";
+	public String getText() {
+		StringBuilder sb = new StringBuilder();
+		for (User user : DAO.getAll(User.class)) {
+			sb.append("<a href=\"" + uriInfo.getPath() + "/" + user.getLoginName() + "\">");
+			sb.append(user.getLoginName());
+			sb.append("</a><br>");
+		}
+		return sb.toString();
 	}
 	
 	@POST
