@@ -34,6 +34,7 @@ public class UsersResource {
 		return sb.toString();
 	}
 	
+	// TODO Ta bort? Skapades som test.
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public List<User> getData() {
