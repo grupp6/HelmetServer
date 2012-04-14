@@ -1,4 +1,4 @@
-package se.mah.helmet.server.hibernate;
+package se.mah.helmet.server.storage;
 
 import java.util.Date;
 
@@ -12,7 +12,7 @@ import se.mah.helmet.server.entity.User;
 
 public class HibernateTest {
 	public static void main(String[] args) {
-		User user = new User("Mr Brown");
+		User user = new User("MrBrown");
 		
 		user.addAlarm(new Alarm());
 		user.addTrip(new Trip());
@@ -32,7 +32,7 @@ public class HibernateTest {
 		user = (User) session.get(User.class, 1l);
 		System.out.println(user.getLoginName());
 		user = null;
-		user = (User) session.bySimpleNaturalId(User.class).load("Mr Brown");
+		user = (User) session.bySimpleNaturalId(User.class).load("MrBrown");
 		System.out.println(user.getLoginName());
 		session.close();
 		

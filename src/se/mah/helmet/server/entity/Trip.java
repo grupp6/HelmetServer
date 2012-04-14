@@ -23,6 +23,14 @@ public class Trip {
 	public Trip(String name) {
 		this.name = name;
 	}
+	
+	public void addAccData(AccData accData) {
+		this.accData.add(accData);
+	}
+	
+	public void addPosData(Position position) {
+		locData.add(position);
+	}
 
 	public String getName() {
 		return name;

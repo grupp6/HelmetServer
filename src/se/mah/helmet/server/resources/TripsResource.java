@@ -11,27 +11,27 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-import se.mah.helmet.server.entity.User;
+import se.mah.helmet.server.entity.Trip;
 import se.mah.helmet.server.storage.DAO;
 
-@Path("/users")
-public class UsersResource {
+@Path("/users/{user}/trips")
+public class TripsResource {
 	@Context
 	UriInfo uriInfo;
 	@Context
 	Request request;
-	
+
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public String getHtml() {
 		// TODO Implementera
-		return "Inte implementerat.";
+		return "Inte färdigt";
 	}
 	
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public void newUser(User newUser) {
-		DAO.insertUser(newUser);
+	public void newAlarm(Trip newTrip, @PathParam("user") String userName) {
+		DAO.insertUserTrip(userName, newTrip);
 	}
 }

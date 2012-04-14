@@ -1,4 +1,4 @@
-package se.mah.helmet.server.hibernate;
+package se.mah.helmet.server.storage;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
