@@ -24,6 +24,7 @@ public class UsersResource {
 	@Produces(MediaType.TEXT_HTML)
 	public String getText() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("Users:<br>");
 		for (User user : DAO.getAll(User.class)) {
 			sb.append("<a href=\"" + uriInfo.getPath() + "/" + user.getLoginName() + "\">");
 			sb.append(user.getLoginName());
