@@ -33,7 +33,9 @@ public class UserResource {
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public String getContactHtml(@PathParam("user") String userName) {
-		return getUser(userName).toString();
+		User user = getUser(userName);
+		return "User name: " + user.getLoginName() + "<br>" +
+			   "User id: " + user.getId() + "<br>";
 	}
 	
 	private User getUser(String userName) {
