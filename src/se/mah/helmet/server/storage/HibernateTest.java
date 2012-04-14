@@ -23,6 +23,11 @@ public class HibernateTest {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(user);
+		session.save(new User("MrWhite"));
+		session.save(new User("MrOrange"));
+		session.save(new User("MrBlone"));
+		session.save(new User("MrBlue"));
+		session.save(new User("MrPink"));
 		session.getTransaction().commit();
 		session.close();
 		
