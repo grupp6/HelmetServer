@@ -1,11 +1,7 @@
-# Hibernate configuration (hibernate.cfg.xml)                       #
-# This file is marked as --assume-unchanged in the git repository.  #
-# That means that changes will not be tracked even though the file  #
-# is in the repository. The reason for this is that this file needs #
-# to contain database username and password, which we don't want to #
-# share publicly on GitHub.                                         #
-#####################################################################
-
+# Hibernate configuration    #
+# Contains database password #
+##############################
+src/hibernate.cfg.xml
 
 # Files in the build and lib paths #
 ####################################
