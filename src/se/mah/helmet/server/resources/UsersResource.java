@@ -21,11 +21,14 @@ public class UsersResource {
 	Request request;
 	
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.TEXT_HTML)
 	public String getText() {
 		StringBuilder sb = new StringBuilder();
-		for (User user : DAO.getAll(User.class))
-			sb.append(user.getLoginName() + "\n");
+		for (User user : DAO.getAll(User.class)) {
+			sb.append("<a href=\"" + uriInfo.getPath() + "/" + user.getLoginName() + "\">");
+			sb.append(user.getLoginName());
+			sb.append("</a><br>");
+		}
 		return sb.toString();
 	}
 	
