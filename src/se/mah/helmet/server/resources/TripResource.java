@@ -39,7 +39,7 @@ public class TripResource {
 	}
 	
 	private Trip getTrip(long tripId) {
-		Trip trip = DAO.getTrip(tripId);
+		Trip trip = DAO.getById(Trip.class, tripId);
 		if (trip == null)
 			throw new NotFoundException("No such Trip.");
 		return trip; 

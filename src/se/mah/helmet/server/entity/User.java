@@ -9,9 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.NaturalId;
 
+@XmlRootElement
 @Entity
 public class User {
 	private long id;
@@ -34,10 +37,10 @@ public class User {
 	}
 	
 	public void addTrip(Trip trip) {
-		trip.setUser(this);
 		this.trips.add(trip);
 	}
 	
+	@XmlTransient
 	@OneToOne
 	public Contact getContactInfo() {
 		return contactInfo;
@@ -46,6 +49,7 @@ public class User {
 		this.contactInfo = contactInfo;
 	}
 	
+	@XmlTransient
 	@OneToMany (mappedBy="user", cascade=CascadeType.ALL)
 	public List<Alarm> getAlarms() {
 		return alarms;
@@ -54,6 +58,7 @@ public class User {
 		this.alarms = alarms;
 	}
 	
+	@XmlTransient
 	@OneToMany (cascade=CascadeType.ALL)
 	public List<Trip> getTrips() {
 		return trips;
@@ -71,6 +76,7 @@ public class User {
 		this.loginName = loginName;
 	}
 
+	@XmlTransient
 	@OneToMany (cascade=CascadeType.ALL)
 	public List<Contact> getEmergencyContacts() {
 		return emergencyContacts;

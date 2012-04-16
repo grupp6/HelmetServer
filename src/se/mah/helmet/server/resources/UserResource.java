@@ -39,7 +39,7 @@ public class UserResource {
 	}
 	
 	private User getUser(String userName) {
-		User user = DAO.getUser(userName);
+		User user = DAO.getByNaturalId(User.class, userName);
 		if (user == null)
 			throw new NotFoundException("No such User.");
 		return user; 
@@ -54,6 +54,7 @@ public class UserResource {
 	
 	@DELETE
 	public void deleteUser(@PathParam("user") String userName) {
-		DAO.deleteById(User.class, DAO.getUser(userName).getId());
+		// TODO Should be done in the same session.
+		DAO.deleteById(User.class, DAO.getByNaturalId(User.class, userName).getId());
 	}
 }

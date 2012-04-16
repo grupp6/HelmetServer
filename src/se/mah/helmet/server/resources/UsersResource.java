@@ -1,5 +1,7 @@
 package se.mah.helmet.server.resources;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -22,7 +24,7 @@ public class UsersResource {
 	
 	@GET
 	@Produces(MediaType.TEXT_HTML)
-	public String getText() {
+	public String getHtml() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Users:<br>");
 		for (User user : DAO.getAll(User.class)) {
@@ -33,10 +35,17 @@ public class UsersResource {
 		return sb.toString();
 	}
 	
+	@GET
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public List<User> getData() {
+		return DAO.getAll(User.class);
+	}
+	
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public void newUser(User newUser) {
+	public String newUser(User newUser) {
 		DAO.insertUser(newUser);
+		return "Created user";
 	}
 }

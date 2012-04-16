@@ -3,6 +3,7 @@ package se.mah.helmet.server.storage;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -88,28 +89,6 @@ public class DAO {
 	}
 	
 	/**
-	 * Returns the User with the specified user name or null if there's no
-	 * such Uuser.
-	 * 
-	 * @param userName user name
-	 * @return the User with the specified user name or null
-	 */
-	public static User getUser(String userName) {
-		return getByNaturalId(User.class, userName);
-	}
-	
-	/**
-	 * Returns the Trip with the specified id or null if there's no
-	 * such Trip.
-	 * 
-	 * @param tripId trip id
-	 * @return the Trip with the specified trip id or null
-	 */
-	public static Trip getTrip(long tripId) {
-		return getById(Trip.class, tripId);
-	}
-	
-	/**
 	 * Updates object in the database.
 	 * 
 	 * @param updatedObject
@@ -138,9 +117,8 @@ public class DAO {
 	
 	public static <T> List<T> getAll(Class<T> clazz) {
 		Session session = getSession();
-		Query query = session.createQuery("from " + clazz.getName());
 		@SuppressWarnings("unchecked")
-		List<T> res = query.list();
+		List<T> res = session.createCriteria(clazz).list();
 		session.close();
 		return res;
 	}

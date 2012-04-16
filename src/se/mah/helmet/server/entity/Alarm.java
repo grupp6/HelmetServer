@@ -8,7 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
 public class Alarm {
 	private long id;
@@ -25,11 +28,10 @@ public class Alarm {
 		this.id = id;
 	}
 
-	/*
+	@Transient
 	public Date getTime() {
 		return position.getTime();
 	}
-	*/
 	
 	@ManyToOne
 	public User getUser() {
