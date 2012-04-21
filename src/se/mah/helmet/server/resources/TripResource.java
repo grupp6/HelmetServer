@@ -76,7 +76,7 @@ public class TripResource {
 	@GET
 	@Path("source-id")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String getSourceId(@PathParam("trip") String userId, @PathParam("trip") String tripId) {
+	public String getSourceId(@PathParam("user") String userId, @PathParam("trip") String tripId) {
 		return String.valueOf(getTrip(userId, tripId).getSourceId());
 	}
 }

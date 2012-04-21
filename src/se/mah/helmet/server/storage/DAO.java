@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -149,10 +150,8 @@ public class DAO {
 	public static Trip getLastSourceId(String userName) {
 		Session session = getSession();
 		Long userId = getByNaturalId(session, User.class, userName).getId();
-		Criteria crit = session.createCriteria(Trip.class);
-		crit.add(Restrictions.eq("user_id", userId));
-		crit.addOrder(Order.desc("sourceId"));
-		Trip trip = (Trip) crit.uniqueResult();
+		Query q = session.createQuery("from Trip trip where trip.sourceId = (select max(sourceId) from Trip)");
+		Trip trip = (Trip) q.uniqueResult();
 		session.close();
 		return trip;
 	}
