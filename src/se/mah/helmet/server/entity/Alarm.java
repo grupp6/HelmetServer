@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 public class Alarm {
 	private long id;
+	private long sourceId;
 	private User user;
 	private Position position;
 	// TODO Impact-data?
@@ -47,6 +48,12 @@ public class Alarm {
 	}
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+	public long getSourceId() {
+		return sourceId;
+	}
+	public void setSourceId(long sourceId) {
+		this.sourceId = sourceId;
 	}
 
 }

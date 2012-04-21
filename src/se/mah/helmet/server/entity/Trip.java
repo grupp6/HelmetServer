@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 public class Trip {
 	private long id;
+	private long sourceId;
 	private String name;
 	private List<AccData> accData = new ArrayList<AccData>();
 	private List<Position> locData = new ArrayList<Position>();
@@ -67,5 +68,13 @@ public class Trip {
 	}
 	public void setLocData(List<Position> locData) {
 		this.locData = locData;
+	}
+
+	public long getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(long sourceId) {
+		this.sourceId = sourceId;
 	}
 }

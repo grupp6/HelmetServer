@@ -139,6 +139,11 @@ public class DAO {
 		return obj;
 	}
 	
+	public static Trip getLast() {
+		Session session = getSession();
+		session.
+	}
+	
 	public static Session beginTransaction() {
 		// TODO Handle Exeptions!
 		Session session = HibernateUtil.getSessionFactory().openSession();
