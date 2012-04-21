@@ -29,9 +29,10 @@ public class TripsResource {
 	}
 	
 	@POST
-	@Produces(MediaType.TEXT_HTML)
+	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public void newAlarm(Trip newTrip, @PathParam("user") String userName) {
+	public String newAlarm(Trip newTrip, @PathParam("user") String userName) {
 		DAO.insertUserTrip(userName, newTrip);
+		return "Created new trip.";
 	}
 }
