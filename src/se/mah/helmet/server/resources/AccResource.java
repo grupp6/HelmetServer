@@ -14,8 +14,8 @@ import javax.ws.rs.core.UriInfo;
 import se.mah.helmet.server.entity.AccData;
 import se.mah.helmet.server.storage.DAO;
 
-@Path("/users/{user}/trips/{trip}/data/g")
-public class AccsResource {
+@Path("/users/{user}/trips/{trip}/data/g/{accData}")
+public class AccResource {
 	@Context
 	UriInfo uriInfo;
 	@Context
