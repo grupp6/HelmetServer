@@ -38,11 +38,28 @@ public class TripResource {
 		return getTrip(tripId).toString();
 	}
 	
+	/**
+	 * @deprecated
+	 */
+	// TODO Ta bort
 	private Trip getTrip(long tripId) {
 		Trip trip = DAO.getById(Trip.class, tripId);
 		if (trip == null)
 			throw new NotFoundException("No such Trip.");
 		return trip; 
+	}
+	
+	public static Trip getTrip(String userName, String tripId) {
+		Trip trip;
+		if (tripId.equals("last"))
+			trip = DAO.getLastSourceId(userName);
+		else
+			trip = DAO.getById(Trip.class, Long.valueOf(tripId));
+		
+		if (trip == null)
+			throw new NotFoundException("No such trip.");
+		
+		return trip;
 	}
 	
 	@PUT
@@ -54,5 +71,12 @@ public class TripResource {
 	@DELETE
 	public void deleteTrip(@PathParam("trip") long tripId) {
 		DAO.deleteById(Trip.class, tripId);
+	}
+	
+	@GET
+	@Path("source-id")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getSourceId(@PathParam("trip") String userId, @PathParam("trip") String tripId) {
+		return String.valueOf(getTrip(userId, tripId).getSourceId());
 	}
 }
