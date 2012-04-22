@@ -13,55 +13,57 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
 import se.mah.helmet.server.entity.Trip;
-import se.mah.helmet.server.entity.User;
 import se.mah.helmet.server.storage.DAO;
 
 import com.sun.jersey.api.NotFoundException;
 
-@Path("/users/{user}/trips/{trip}")
 public class TripResource {
 	@Context
 	UriInfo uriInfo;
 	@Context
 	Request request;
+	private final long tripId;
 	
+	public TripResource(UriInfo uriInfo, Request request, String userName,
+			String trip) {
+		this.uriInfo = uriInfo;
+		this.request = request;
+		if (trip.equals("last"))
+			tripId = DAO.getLastTripId(userName);
+		else
+			tripId = Long.valueOf(trip);
+	}
+	
+	@Path("data/loc")
+	public LocsResource getLocsResrouce() {
+		return new LocsResource(uriInfo, request, tripId);
+	}
+	
+	@Path("data/g")
+	public AccsResource getAccsResrouce() {
+		return new AccsResource(uriInfo, request, tripId);
+	}
+
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public Trip getTripData(@PathParam("trip") long tripId) {
+	public Trip getTripData() {
 		return getTrip(tripId);
 	}
 	
 	@GET
 	@Produces(MediaType.TEXT_HTML)
-	public String getTripHtml(@PathParam("trip") long tripId) {
+	public String getTripHtml() {
 		// TODO Implementera
 		return getTrip(tripId).toString();
 	}
 	
-	/**
-	 * @deprecated
-	 */
-	// TODO Ta bort
 	private Trip getTrip(long tripId) {
 		Trip trip = DAO.getById(Trip.class, tripId);
 		if (trip == null)
 			throw new NotFoundException("No such Trip.");
 		return trip; 
 	}
-	
-	public static Trip getTrip(String userName, String tripId) {
-		Trip trip;
-		if (tripId.equals("last"))
-			trip = DAO.getLastSourceId(userName);
-		else
-			trip = DAO.getById(Trip.class, Long.valueOf(tripId));
 		
-		if (trip == null)
-			throw new NotFoundException("No such trip.");
-		
-		return trip;
-	}
-	
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public void updateTrip(Trip updatedTrip) {
@@ -69,14 +71,14 @@ public class TripResource {
 	}
 	
 	@DELETE
-	public void deleteTrip(@PathParam("trip") long tripId) {
+	public void deleteTrip() {
 		DAO.deleteById(Trip.class, tripId);
 	}
 	
 	@GET
 	@Path("source-id")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String getSourceId(@PathParam("user") String userId, @PathParam("trip") String tripId) {
-		return String.valueOf(getTrip(userId, tripId).getSourceId());
+	public String getSourceId() {
+		return String.valueOf(getTrip(tripId).getSourceId());
 	}
 }

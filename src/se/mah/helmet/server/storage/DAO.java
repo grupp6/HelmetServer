@@ -146,14 +146,15 @@ public class DAO {
 		T obj = (T) session.bySimpleNaturalId(clazz).load(naturalId);
 		return obj;
 	}
-	
-	public static Trip getLastSourceId(String userName) {
+
+	public static long getLastTripId(String userName) {
 		Session session = getSession();
 		Long userId = getByNaturalId(session, User.class, userName).getId();
+		// TODO use user name (otherwise it's not correct)
 		Query q = session.createQuery("from Trip trip where trip.sourceId = (select max(sourceId) from Trip)");
 		Trip trip = (Trip) q.uniqueResult();
 		session.close();
-		return trip;
+		return trip.getId();
 	}
 	
 	public static Session beginTransaction() {
@@ -171,5 +172,10 @@ public class DAO {
 	
 	public static Session getSession() {
 		return HibernateUtil.getSessionFactory().openSession();
+	}
+
+	public static Long getLastAlarmId(String userName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

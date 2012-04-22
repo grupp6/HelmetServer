@@ -14,12 +14,23 @@ import javax.ws.rs.core.UriInfo;
 import se.mah.helmet.server.entity.Trip;
 import se.mah.helmet.server.storage.DAO;
 
-@Path("/users/{user}/trips")
 public class TripsResource {
 	@Context
 	UriInfo uriInfo;
 	@Context
 	Request request;
+	private final String userName;
+
+	public TripsResource(UriInfo uriInfo, Request request, String userName) {
+		this.userName = userName;
+		this.uriInfo = uriInfo;
+		this.request = request;
+	}
+	
+	@Path("{trip}")
+	public TripResource getTripResource(@PathParam("trip") String trip) {
+		return new TripResource(uriInfo, request, userName, trip);
+	}
 
 	@GET
 	@Produces(MediaType.TEXT_HTML)
@@ -31,7 +42,7 @@ public class TripsResource {
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public String newAlarm(Trip newTrip, @PathParam("user") String userName) {
+	public String newAlarm(Trip newTrip) {
 		DAO.insertUserTrip(userName, newTrip);
 		return "Created new trip.";
 	}
