@@ -162,7 +162,10 @@ public class DAO {
 				+ " order by " + from + ".sourceId desc, " + from + ".id desc");
 
 		q.setMaxResults(1);
-		long lastId = (long) q.uniqueResult();
+		long lastId = -1;
+		try {
+		lastId = (long) q.uniqueResult();
+		} catch (Exception e) {	}
 		session.close();
 		return lastId;
 	}
@@ -174,11 +177,6 @@ public class DAO {
 	public static long getLastLocId(long tripId) {
 		Session session = getSession();
 		Query q = session.createQuery(
-				"select pos.id"
-				+ " from Position pos inner join pos.trip trip"
-				+ " where trip.id=" + tripId
-				+ " order by pos.sourceId desc, pos.id desc");
-		q = session.createQuery(
 				"select pos.id"
 				+ " from Trip trip inner join trip.locData pos"
 				+ " where trip.id=" + tripId
