@@ -39,17 +39,9 @@ public class User {
 	
 	public void addTrip(Trip trip) {
 		this.trips.add(trip);
+		trip.setUser(this);
 	}
-	
-	@XmlTransient
-	@OneToOne
-	public Contact getContactInfo() {
-		return contactInfo;
-	}
-	public void setContactInfo(Contact contactInfo) {
-		this.contactInfo = contactInfo;
-	}
-	
+		
 	@XmlTransient
 	@OneToMany (mappedBy="user", cascade=CascadeType.ALL)
 	public List<Alarm> getAlarms() {
@@ -60,7 +52,7 @@ public class User {
 	}
 	
 	@XmlTransient
-	@OneToMany (cascade=CascadeType.ALL)
+	@OneToMany (mappedBy="user", cascade=CascadeType.ALL)
 	public List<Trip> getTrips() {
 		return trips;
 	}

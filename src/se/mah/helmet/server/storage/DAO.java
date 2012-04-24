@@ -146,15 +146,45 @@ public class DAO {
 		T obj = (T) session.bySimpleNaturalId(clazz).load(naturalId);
 		return obj;
 	}
-
+	
 	public static long getLastTripId(String userName) {
+		return getLastId(Trip.class, userName);
+	}
+	
+	public static long getLastId(Class clazz, String userName) {
 		Session session = getSession();
-		Long userId = getByNaturalId(session, User.class, userName).getId();
-		// TODO use user name (otherwise it's not correct)
-		Query q = session.createQuery("from Trip trip where trip.sourceId = (select max(sourceId) from Trip)");
-		Trip trip = (Trip) q.uniqueResult();
+		String fromClass = clazz.getSimpleName();
+		String from = fromClass.toLowerCase();
+		Query q = session.createQuery(
+				"select " + from + ".id"
+				+ " from " + fromClass + " " + from + " inner join " + from + ".user as user"
+				+ " where user.loginName='" + userName + "'"
+				+ " order by " + from + ".sourceId desc, " + from + ".id desc");
+
+		q.setMaxResults(1);
+		long lastId = -1;
+		try {
+		lastId = (long) q.uniqueResult();
+		} catch (Exception e) {	}
 		session.close();
-		return trip.getId();
+		return lastId;
+	}
+	
+	public static long getLastAlarmId(String userName) {
+		return getLastId(Alarm.class, userName);
+	}
+
+	public static long getLastLocId(long tripId) {
+		Session session = getSession();
+		Query q = session.createQuery(
+				"select pos.id"
+				+ " from Trip trip inner join trip.locData pos"
+				+ " where trip.id=" + tripId
+				+ " order by pos.sourceId desc, pos.id desc");
+		q.setMaxResults(1);
+		long lastId = (long) q.uniqueResult();
+		session.close();
+		return lastId;
 	}
 	
 	public static Session beginTransaction() {
@@ -172,10 +202,5 @@ public class DAO {
 	
 	public static Session getSession() {
 		return HibernateUtil.getSessionFactory().openSession();
-	}
-
-	public static Long getLastAlarmId(String userName) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

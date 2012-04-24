@@ -14,7 +14,7 @@ public class HibernateTest {
 	public static void main(String[] args) {
 		User user = new User("MrBrown");
 		
-		user.addAlarm(new Alarm());
+		user.addAlarm(new Alarm(1, new Position(2, new Date(), 45, 45)));
 		Trip trip = new Trip();
 		trip.setName("Browns first trip");
 		trip.setSourceId(1);
@@ -25,13 +25,31 @@ public class HibernateTest {
 		user.addTrip(trip);
 		
 		user.getTrips().get(0).getAccData().add(new AccData(new Date(), 1l, 23, 23, 23));
-		user.getTrips().get(0).getLocData().add(new Position(new Date(), 2.23, 5));
+		user.getTrips().get(0).getLocData().add(new Position(1, new Date(), 2.23, 5));
+		user.getTrips().get(0).getLocData().add(new Position(3, new Date(), 54, 12));
+		user.getTrips().get(0).getLocData().add(new Position(7, new Date(), 54, 12));
 		
+		User user2 = new User("MrWhite");
+		
+		user2.addAlarm(new Alarm(1, new Position(1, new Date(), 2.48, 8.65)));
+		user2.addAlarm(new Alarm(2, new Position(2, new Date(), 23, 1)));
+		trip = new Trip();
+		trip.setName("Whites first trip");
+		trip.setSourceId(1);
+		user2.addTrip(trip);
+		trip = new Trip();
+		trip.setName("Whites second trip");
+		trip.setSourceId(2);
+		user2.addTrip(trip);
+		
+		user2.getTrips().get(0).getAccData().add(new AccData(new Date(), 1l, 1, 2, 3));
+		user2.getTrips().get(0).getLocData().add(new Position(4, new Date(), 7, 7));
+
 		// Exception handling not included!!!
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(user);
-		session.save(new User("MrWhite"));
+		session.save(user2);
 		session.save(new User("MrOrange"));
 		session.save(new User("MrBlone"));
 		session.save(new User("MrBlue"));

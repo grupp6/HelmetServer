@@ -42,6 +42,13 @@ public class AlarmResource {
 		return getAlarm(alarmId).toString();
 	}
 	
+	@Path("source-id")
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getSourceId() {
+		return String.valueOf(getAlarm(alarmId).getSourceId());
+	}
+	
 	private Alarm getAlarm(long alarmId) {
 		Alarm alarm = DAO.getById(Alarm.class, alarmId);
 		if (alarm == null)
