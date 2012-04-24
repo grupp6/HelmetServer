@@ -15,8 +15,16 @@ public class HibernateTest {
 		User user = new User("MrBrown");
 		
 		user.addAlarm(new Alarm());
-		user.addTrip(new Trip());
-		user.getTrips().get(0).getAccData().add(new AccData(new Date(), 23, 23, 23));
+		Trip trip = new Trip();
+		trip.setName("Browns first trip");
+		trip.setSourceId(1);
+		user.addTrip(trip);
+		trip = new Trip();
+		trip.setName("Browns second trip");
+		trip.setSourceId(2);
+		user.addTrip(trip);
+		
+		user.getTrips().get(0).getAccData().add(new AccData(new Date(), 1l, 23, 23, 23));
 		user.getTrips().get(0).getLocData().add(new Position(new Date(), 2.23, 5));
 		
 		// Exception handling not included!!!

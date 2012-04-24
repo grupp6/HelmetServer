@@ -8,10 +8,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 public class Contact {
-	@SuppressWarnings("unused")
-	@Id
-	@GeneratedValue
 	private long id;
+	private long sourceId;
 	String name;
 	String phoneNbr;
 	
@@ -26,6 +24,21 @@ public class Contact {
 	}
 	public void setPhoneNbr(String phoneNbr) {
 		this.phoneNbr = phoneNbr;
+	}
+
+	@Id
+	@GeneratedValue
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public long getSourceId() {
+		return sourceId;
+	}
+	public void setSourceId(long sourceId) {
+		this.sourceId = sourceId;
 	}
 
 }

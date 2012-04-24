@@ -3,9 +3,11 @@ package se.mah.helmet.server.storage;
 import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.Hibernate;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import se.mah.helmet.server.entity.AccData;
 import se.mah.helmet.server.entity.Alarm;
@@ -131,12 +133,28 @@ public class DAO {
 		return obj;
 	}
 	
-	public static <T> T getByNaturalId(Class<T> clazz, Serializable id) {
+	public static <T> T getByNaturalId(Class<T> clazz, Serializable naturalId) {
 		Session session = getSession();
 		@SuppressWarnings("unchecked")
-		T obj = (T) session.bySimpleNaturalId(clazz).load(id);
+		T obj = (T) getByNaturalId(session, clazz, naturalId);
 		session.close();
 		return obj;
+	}
+	
+	public static <T> T getByNaturalId(Session session, Class<T> clazz, Serializable naturalId) {
+		@SuppressWarnings("unchecked")
+		T obj = (T) session.bySimpleNaturalId(clazz).load(naturalId);
+		return obj;
+	}
+
+	public static long getLastTripId(String userName) {
+		Session session = getSession();
+		Long userId = getByNaturalId(session, User.class, userName).getId();
+		// TODO use user name (otherwise it's not correct)
+		Query q = session.createQuery("from Trip trip where trip.sourceId = (select max(sourceId) from Trip)");
+		Trip trip = (Trip) q.uniqueResult();
+		session.close();
+		return trip.getId();
 	}
 	
 	public static Session beginTransaction() {
@@ -154,5 +172,10 @@ public class DAO {
 	
 	public static Session getSession() {
 		return HibernateUtil.getSessionFactory().openSession();
+	}
+
+	public static Long getLastAlarmId(String userName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

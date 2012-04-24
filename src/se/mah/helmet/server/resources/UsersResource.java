@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -22,10 +23,16 @@ public class UsersResource {
 	@Context
 	Request request;
 	
+	@Path("{userName}")
+	public UserResource getUserResource(@PathParam("userName") String userName) {
+		return new UserResource(uriInfo, request, userName);
+	}
+	
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public String getHtml() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("Users:<br>");
 		for (User user : DAO.getAll(User.class)) {
 			sb.append("<a href=\"" + uriInfo.getPath() + "/" + user.getLoginName() + "\">");
 			sb.append(user.getLoginName());

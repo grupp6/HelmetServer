@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 public class AccData {
 	private long id;
+	private long sourceId;
 	private Date time;
 	private double accX;
 	private double accY;
@@ -18,8 +19,9 @@ public class AccData {
 	
 	public AccData() { }
 	
-	public AccData(Date time, double accX, double accY, double accZ) {
+	public AccData(Date time, long sourceId, double accX, double accY, double accZ) {
 		this.time = time;
+		this.sourceId = sourceId;
 		this.accX = accX;
 		this.accY = accY;
 		this.accZ = accZ;
@@ -57,5 +59,11 @@ public class AccData {
 	}
 	public void setAccZ(double accZ) {
 		this.accZ = accZ;
+	}
+	public long getSourceId() {
+		return sourceId;
+	}
+	public void setSourceId(long sourceId) {
+		this.sourceId = sourceId;
 	}
 }

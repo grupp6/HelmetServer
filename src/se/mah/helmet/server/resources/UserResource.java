@@ -17,22 +17,39 @@ import se.mah.helmet.server.storage.DAO;
 
 import com.sun.jersey.api.NotFoundException;
 
-@Path("/users/{user}")
 public class UserResource {
 	@Context
 	UriInfo uriInfo;
 	@Context
 	Request request;
+	private final String userName;
+	
+	public UserResource(UriInfo uriInfo, Request request, String userName) {
+		this.userName = userName;
+		this.uriInfo = uriInfo;
+		this.request = request;
+	}
+	
+	@Path("trips")
+	public TripsResource getTripsResource() {
+		return new TripsResource(uriInfo, request, userName);
+	}
+
+	@Path("alarms")
+	public AlarmsResource getAlarmsResource() {
+		return new AlarmsResource(uriInfo, request, userName);
+	}
+
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public User getContactData(@PathParam("user") String userName) {
+	public User getContactData() {
 		return getUser(userName);
 	}
 	
 	@GET
 	@Produces(MediaType.TEXT_HTML)
-	public String getContactHtml(@PathParam("user") String userName) {
+	public String getContactHtml() {
 		User user = getUser(userName);
 		return "User name: " + user.getLoginName() + "<br>" +
 			   "User id: " + user.getId() + "<br>";

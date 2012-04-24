@@ -10,10 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 public class Position {
-	@SuppressWarnings("unused")
-	@Id
-	@GeneratedValue
 	private long id;
+	private long sourceId;
 	private Date time;
 	private double longitude;
 	private double latitude;
@@ -44,5 +42,20 @@ public class Position {
 	}
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
+	}
+
+	@Id
+	@GeneratedValue
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public long getSourceId() {
+		return sourceId;
+	}
+	public void setSourceId(long sourceId) {
+		this.sourceId = sourceId;
 	}
 }

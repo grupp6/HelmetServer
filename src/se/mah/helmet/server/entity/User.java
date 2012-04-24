@@ -18,6 +18,7 @@ import org.hibernate.annotations.NaturalId;
 @Entity
 public class User {
 	private long id;
+	private long sourceId;
 	private String loginName;
 	private Contact contactInfo;
 	private List<Contact> emergencyContacts = new ArrayList<Contact>();
@@ -94,5 +95,13 @@ public class User {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public long getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(long sourceId) {
+		this.sourceId = sourceId;
 	}
 }

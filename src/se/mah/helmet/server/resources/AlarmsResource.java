@@ -14,12 +14,23 @@ import javax.ws.rs.core.UriInfo;
 import se.mah.helmet.server.entity.Alarm;
 import se.mah.helmet.server.storage.DAO;
 
-@Path("/users/{user}/alarms")
 public class AlarmsResource {
 	@Context
 	UriInfo uriInfo;
 	@Context
 	Request request;
+	private final String userName;
+
+	public AlarmsResource(UriInfo uriInfo, Request request, String userName) {
+		this.uriInfo = uriInfo;
+		this.request = request;
+		this.userName = userName;
+	}
+	
+	@Path("{alarm}")
+	public AlarmResource getAlarmResource(@PathParam("alarm") String alarm) {
+		return new AlarmResource(uriInfo, request, userName, alarm);
+	}
 
 	@GET
 	@Produces(MediaType.TEXT_HTML)
@@ -31,7 +42,7 @@ public class AlarmsResource {
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public void newAlarm(Alarm newAlarm, @PathParam("user") String userName) {
+	public void newAlarm(Alarm newAlarm) {
 		DAO.insertUserAlarm(userName, newAlarm);
 	}
 }
