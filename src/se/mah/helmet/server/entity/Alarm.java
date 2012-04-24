@@ -2,10 +2,10 @@ package se.mah.helmet.server.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -19,6 +19,13 @@ public class Alarm {
 	private User user;
 	private Position position;
 	// TODO Impact-data?
+	
+	private Alarm() { }
+	
+	public Alarm(long sourceId, Position pos) {
+		this.sourceId = sourceId;
+		this.position = pos;
+	}
 	
 	@Id
 	@GeneratedValue
@@ -42,7 +49,7 @@ public class Alarm {
 		this.user = user;
 	}
 	
-	@OneToOne
+	@OneToOne (cascade=CascadeType.ALL)
 	public Position getPosition() {
 		return position;
 	}
@@ -55,5 +62,4 @@ public class Alarm {
 	public void setSourceId(long sourceId) {
 		this.sourceId = sourceId;
 	}
-
 }

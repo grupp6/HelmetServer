@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -19,6 +20,7 @@ public class Trip {
 	private String name;
 	private List<AccData> accData = new ArrayList<AccData>();
 	private List<Position> locData = new ArrayList<Position>();
+	private User user;
 	
 	public Trip() { }
 	
@@ -31,9 +33,16 @@ public class Trip {
 	public long getId() {
 		return id;
 	}
-
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	@ManyToOne
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	public void addAccData(AccData accData) {
