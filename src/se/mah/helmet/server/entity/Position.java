@@ -19,7 +19,8 @@ public class Position {
 	@SuppressWarnings("unused")
 	private Position() { }
 	
-	public Position(Date time, double longitude, double latitude) {
+	public Position(long sourceId, Date time, double longitude, double latitude) {
+		this.sourceId = sourceId;
 		this.time = time;
 		this.longitude = longitude;
 		this.latitude = latitude;

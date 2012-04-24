@@ -147,36 +147,43 @@ public class DAO {
 		return obj;
 	}
 	
-	private static long getLastId(Class fromClass, String where) {
+	public static long getLastTripId(String userName) {
+		return getLastId(Trip.class, userName);
+	}
+	
+	public static long getLastId(Class clazz, String userName) {
 		Session session = getSession();
-		String from = fromClass.getSimpleName();
-		String alias = from.toLowerCase();
+		String fromClass = clazz.getSimpleName();
+		String from = fromClass.toLowerCase();
 		Query q = session.createQuery(
-				"select " + alias + ".id"
-				+ " from " + from + " " + alias
-				+ " where (" + where + ")"
-				+ " and " + alias + ".sourceId = "
-				+ "(select max(sourceId) from " + from + ")");
+				"select " + from + ".id"
+				+ " from " + fromClass + " " + from + " inner join " + from + ".user as user"
+				+ " where user.loginName='" + userName + "'"
+				+ " order by " + from + ".sourceId desc, " + from + ".id desc");
+
+		q.setMaxResults(1);
 		long lastId = (long) q.uniqueResult();
 		session.close();
 		return lastId;
 	}
 	
-	public static long getLastTripId(String userName) {
-		return getLastId(Trip.class, "userId=" + DAO.getByNaturalId(User.class, userName).getSourceId());
-	}
-	
 	public static long getLastAlarmId(String userName) {
-		return getLastId(Trip.class, "userId=" + DAO.getByNaturalId(User.class, userName).getSourceId());
+		return getLastId(Alarm.class, userName);
 	}
 
 	public static long getLastLocId(long tripId) {
 		Session session = getSession();
 		Query q = session.createQuery(
 				"select pos.id"
-				+ " from Position pos inner join Trip trip"
+				+ " from Position pos inner join pos.trip trip"
 				+ " where trip.id=" + tripId
 				+ " order by pos.sourceId desc, pos.id desc");
+		q = session.createQuery(
+				"select pos.id"
+				+ " from Trip trip inner join trip.locData pos"
+				+ " where trip.id=" + tripId
+				+ " order by pos.sourceId desc, pos.id desc");
+		q.setMaxResults(1);
 		long lastId = (long) q.uniqueResult();
 		session.close();
 		return lastId;

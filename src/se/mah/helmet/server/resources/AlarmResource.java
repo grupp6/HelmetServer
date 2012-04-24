@@ -46,7 +46,7 @@ public class AlarmResource {
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getSourceId() {
-		return String.valueOf(getAlarm(alarmId).getId());
+		return String.valueOf(getAlarm(alarmId).getSourceId());
 	}
 	
 	private Alarm getAlarm(long alarmId) {

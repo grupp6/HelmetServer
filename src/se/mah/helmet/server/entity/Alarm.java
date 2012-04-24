@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 @Entity
@@ -40,7 +41,8 @@ public class Alarm {
 	public Date getTime() {
 		return position.getTime();
 	}
-	
+
+	@XmlTransient
 	@ManyToOne
 	public User getUser() {
 		return user;
