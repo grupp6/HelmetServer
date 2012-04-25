@@ -70,13 +70,14 @@ public class DAO {
 	 * @param tripId Trip to add data to
 	 * @param position data to add
 	 */
-	public static void insertUserTrip(String userName, Trip trip) {
+	public static long insertUserTrip(String userName, Trip trip) {
 		Session session = getSession();
 		User user = (User) session.bySimpleNaturalId(User.class).load(userName);
 		user.addTrip(trip);
 		session.beginTransaction();
 		session.save(user);
 		commitAndClose(session);
+		return trip.getId();
 	}
 	
 	/**

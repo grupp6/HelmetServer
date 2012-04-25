@@ -43,7 +43,6 @@ public class TripsResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public String newAlarm(Trip newTrip) {
-		DAO.insertUserTrip(userName, newTrip);
-		return "Created new trip.";
+		return String.valueOf(DAO.insertUserTrip(userName, newTrip));
 	}
 }
