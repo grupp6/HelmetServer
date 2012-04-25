@@ -42,7 +42,8 @@ public class LocsResource {
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public void newAccData(Position newPosition) {
+	public String newAccData(Position newPosition) {
 		DAO.insertTripPosition(tripId, newPosition);
+		return "Added new loc.";
 	}
 }

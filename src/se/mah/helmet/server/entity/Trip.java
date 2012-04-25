@@ -86,4 +86,9 @@ public class Trip {
 	public void setSourceId(long sourceId) {
 		this.sourceId = sourceId;
 	}
+
+	@Override
+	public String toString() {
+		return "Trip [id=" + id + ", sourceId=" + sourceId + ", name=" + name + "]";
+	}
 }

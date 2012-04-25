@@ -1,5 +1,7 @@
 package se.mah.helmet.server.resources;
 
+import java.util.ArrayList;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -35,7 +37,8 @@ public class AccsResource {
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public void newAccData(AccData newAccData) {
+	public String newAccData(AccData newAccData) {
 		DAO.insertTripAccData(tripId, newAccData);
+		return "Added accelerometer data.";
 	}
 }
