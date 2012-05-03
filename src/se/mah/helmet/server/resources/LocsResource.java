@@ -26,11 +26,6 @@ public class LocsResource {
 		this.request = request;
 		this.tripId = tripId;
 	}
-	
-	@Path("{loc}")
-	public LocResource getLocResource(@PathParam("loc") String loc) {
-		return new LocResource(uriInfo, request, tripId, loc);
-	}
 
 	@GET
 	@Produces(MediaType.TEXT_HTML)
