@@ -1,10 +1,10 @@
 package se.mah.helmet.server.resources;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -26,17 +26,18 @@ public class LocsResource {
 		this.request = request;
 		this.tripId = tripId;
 	}
-	
-	@Path("{loc}")
-	public LocResource getLocResource(@PathParam("loc") String loc) {
-		return new LocResource(uriInfo, request, tripId, loc);
-	}
 
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public String getHtml() {
 		// TODO Implementera
 		return "Inte färdigt";
+	}
+	
+	@GET
+	@Produces({MediaType.APPLICATION_JSON,  MediaType.APPLICATION_XML})
+	public List<Position> getPositions() {
+		return DAO.getPositionsFromTrip(tripId);
 	}
 	
 	@POST

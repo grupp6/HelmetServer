@@ -221,4 +221,14 @@ public class DAO {
 	public static Session getSession() {
 		return HibernateUtil.getSessionFactory().openSession();
 	}
+
+	public static List<Position> getPositionsFromTrip(long tripId) {
+		// TODO Test
+		Session session = getSession();
+		@SuppressWarnings("unchecked")
+		Trip trip = (Trip) session.get(Trip.class, tripId);
+		List<Position> pos = trip.getLocData();
+		session.close();
+		return pos;
+	}
 }
