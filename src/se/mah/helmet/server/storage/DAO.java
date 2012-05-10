@@ -134,6 +134,11 @@ public class DAO {
 		return obj;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static <T> T getById(Session session, Class<T> clazz, Serializable id) {
+		return (T) session.get(clazz, id);
+	}
+	
 	public static <T> T getByNaturalId(Class<T> clazz, Serializable naturalId) {
 		Session session = getSession();
 		@SuppressWarnings("unchecked")
@@ -169,6 +174,18 @@ public class DAO {
 		} catch (Exception e) {	}
 		session.close();
 		return lastId;
+	}
+	
+	public static double[][] getCoordsInTrip(long tripId) {
+		Session session = getSession();
+		Trip trip = getById(session, Trip.class, tripId);
+		List<Position> pos = trip.getLocData();
+		double[][] coords = new double[pos.size()][2];
+		for (int row = 0; row < pos.size(); row++) {
+			coords[row][0] = pos.get(row).getLatitude();
+			coords[row][1] = pos.get(row).getLongitude();
+		}
+		return coords;
 	}
 	
 	public static long getLastAlarmId(String userName) {

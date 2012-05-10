@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<style type="text/css">
+html {
+	height: 100%
+}
+
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0
+}
+
+#map_canvas {
+	height: 100%
+}
+</style>
+<script type="text/javascript"
+	src="http://maps.googleapis.com/maps/api/js?sensor=false">
+    </script>
+<script type="text/javascript">
+	function getCoords()
+{
+
+}
+	
+  function initialize() {
+    var myLatLng = new google.maps.LatLng(11, 52);
+    var myOptions = {
+      zoom: 10,
+      center: myLatLng,
+      mapTypeId: google.maps.MapTypeId.TERRAIN
+    };
+
+    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	
+	
+	var Url = "coords";
+	xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", Url, false );
+    xmlHttp.setRequestHeader("Accept", "application/json");
+	xmlHttp.send( null );
+
+	var fromServer = eval(xmlHttp.responseText);
+	//var fromServer = [ [11, 52], [11.01, 52.01], [11.02, 51.01], [10.99, 52] ];
+	
+	var bound = new google.maps.LatLngBounds();
+	var coordsFromServer = new Array(fromServer.length);
+	for (i = 0; i < fromServer.length; i++) {
+		coordsFromServer[i] = new google.maps.LatLng(fromServer[i][0], fromServer[i][1]);
+		bound.extend(coordsFromServer[i]);
+	}
+	map.fitBounds(bound);
+	
+
+    var flightPath = new google.maps.Polyline({
+      path: coordsFromServer,
+      strokeColor: "#FF0000",
+      strokeOpacity: 1.0,
+      strokeWeight: 2
+    });
+	
+    
+	var startIcon = '../../../../../pages/start.png';
+	var marker = new google.maps.Marker({
+      position: coordsFromServer[0],
+      map: map,
+      icon: startIcon
+  });
+	
+	var stopIcon = '../../../../../pages/finish.png';
+	var markerEnd = new google.maps.Marker({
+      position: coordsFromServer[coordsFromServer.length - 1],
+      map: map,
+      icon: stopIcon
+  });
+   
+   flightPath.setMap(map);
+    
+  }
+  </script>
+</head>
+<body onload="initialize()">
+	<div id="map_canvas" style="width: 100%; height: 100%"></div>
+</body>
+</html>

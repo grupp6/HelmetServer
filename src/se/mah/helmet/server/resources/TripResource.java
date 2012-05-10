@@ -1,15 +1,20 @@
 package se.mah.helmet.server.resources;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import se.mah.helmet.server.entity.Trip;
@@ -42,6 +47,15 @@ public class TripResource {
 	@Path("data/g")
 	public AccsResource getAccsResrouce() {
 		return new AccsResource(uriInfo, request, tripId);
+	}
+	
+	@Path("map")
+	@GET
+	@Produces(MediaType.TEXT_HTML)
+	public Response getMap(@Context HttpServletResponse servletResponse) throws IOException {
+		File file = new File("C:/Users/stud/java/projects/HelmetServer/WebContent/pages/trip_map.html");
+		return Response.ok().entity(new FileInputStream(file)).build();
+		//servletResponse.sendRedirect("../../../../pages/test.html");
 	}
 
 	@GET
@@ -80,5 +94,23 @@ public class TripResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getSourceId() {
 		return String.valueOf(getTrip(tripId).getSourceId());
+	}
+	
+	@GET
+	@Path("coords")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getCoords() {
+		StringBuilder json = new StringBuilder();
+		json.append('[');
+		for (double[] coord : DAO.getCoordsInTrip(tripId)) {
+			json.append('[');
+			json.append(coord[0]);
+			json.append(',');
+			json.append(coord[1]);
+			json.append("],");
+		}
+		json.deleteCharAt(json.length() - 1);
+		json.append(']');
+		return json.toString();
 	}
 }
