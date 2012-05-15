@@ -27,14 +27,16 @@ public class HibernateTest2 {
 		Calendar time = Calendar.getInstance();
 		double lon = 12.917175;
 		double lat = 62.671622;
-		double latFact = 0;
+		double addLon = 0.001;
 		for (int i = 0; i < 2000; ++i) {
 			lat += -Math.random() * 0.001;
-			if (i % 50 == 0)
-				latFact = 15;
 			
-			lon += (2*Math.random() - 1) * latFact*0.001;
-			latFact = 1;
+			addLon = addLon + Math.random()*0.001 - 0.0005;
+			if (addLon > 0.002)
+				addLon = 0.002;
+			else if (addLon < -0.002)
+				addLon = -0.002;
+			lon += addLon;
 			
 			time.add(Calendar.MINUTE, 5);
 			randTrip.addPosData(
